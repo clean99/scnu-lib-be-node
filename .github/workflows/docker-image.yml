@@ -14,5 +14,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker-compose -f docker-compose.yml up -d
+    - name: Login to Ali Docker
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ secrets.ALI_DOCKER_HUB_REGISTRY }}
+        username: ${{ secrets.ALI_DOCKER_HUB_USN }}
+        password: ${{ secrets.ALI_DOCKER_HUB_PWD }}
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: registry.cn-hangzhou.aliyuncs.com/scnu-lib/scnu-lib-be:0.1.0
