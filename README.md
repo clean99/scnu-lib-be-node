@@ -35,8 +35,8 @@ $ npm run test:cov
 ## CI/CD
 ### deploy on docker
 ```bash
-$ docker build -t scnu-lib-be:1.0.1 .
-$ docker run -d -p 3000:3000 -v scnu-lib-be:/ --name scnu-lib-be
 
+$ docker-compose -f docker-compose.yml up -d
+记得改密码和image版本号
 service run on 3000
 ```
