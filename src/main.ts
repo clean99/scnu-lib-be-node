@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import {SwaggerModule,DocumentBuilder} from '@nestjs/swagger'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  console.log(process.env.MONGODB_URL)
   const config = new DocumentBuilder()
     .setTitle('SCNU-LIB-BE')
     .setDescription('The scnu-lib-be nodejs implement API document.')
