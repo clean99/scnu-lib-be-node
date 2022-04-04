@@ -19,7 +19,6 @@ services:
     restart: unless-stopped
   server:
     container_name: scnu-lib-be
-    image: scnu-lib-be:1.0.8
     build:
       context: .
       dockerfile: ./Dockerfile
