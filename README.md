@@ -39,6 +39,9 @@ $ npm run test:cov
 development
 $ docker-compose -f docker-compose.yml up -d
 记得改密码和image版本号
+mongodb需要设置access control，参见
+https://www.mongodb.com/docs/manual/reference/connection-string/
+https://stackoverflow.com/questions/34239251/mongodb-docker-container-with-client-access-control
 service run on 3000
 production
 进入服务器，拉取docker镜像
