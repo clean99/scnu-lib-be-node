@@ -4,7 +4,8 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { ThrottlerModule } from '@nestjs/throttler'
+import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ThrottlerModule.forRoot({
@@ -12,7 +13,10 @@ import { ThrottlerModule } from '@nestjs/throttler'
       limit: 30,
     }),
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGODB_URL,{useNewUrlParser:true}), UserModule],
+    MongooseModule.forRoot(process.env.MONGODB_URL, { useNewUrlParser: true }),
+    UserModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
