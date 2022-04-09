@@ -14,7 +14,6 @@ export const validatePhone = function (phone: string) {
 };
 // password 至少8-16个字符，至少1个大写字母，1个小写字母和1个数字，其他可以是任意字符
 export const validatePassword = function (password: string) {
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
-    return re.test(password);
-  };
-  
+  const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
+  return re.test(password);
+};

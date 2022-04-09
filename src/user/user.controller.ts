@@ -14,7 +14,13 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags, ApiResponse, ApiOkResponse, ApiBadRequestResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiResponse,
+  ApiOkResponse,
+  ApiBadRequestResponse,
+  ApiNotFoundResponse,
+} from '@nestjs/swagger';
 import { UserErrorsInterceptor } from './Interceptor/usererrors.interceptor';
 import { User } from 'src/schemas/user.schema';
 @ApiTags('user')
@@ -24,10 +30,14 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
   @ApiOkResponse({
     description: 'The user record',
-    type: CreateUserDto
+    type: CreateUserDto,
   })
   @ApiBadRequestResponse({ status: 401, description: '没有权限' })
-  @ApiBadRequestResponse({ status: 500, description:'User validation failed: email: Please fill a valid email address., college: Please fill a valid college., phone: Please fill a valid phone., password: 请输入至少8-16个字符，至少1个大写字母，1个小写字母和1个数字的密码.'})
+  @ApiBadRequestResponse({
+    status: 500,
+    description:
+      'User validation failed: email: Please fill a valid email address., college: Please fill a valid college., phone: Please fill a valid phone., password: 请输入至少8-16个字符，至少1个大写字母，1个小写字母和1个数字的密码.',
+  })
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     const result = await this.userService.create(createUserDto);
@@ -46,9 +56,9 @@ export class UserController {
   }
   @ApiOkResponse({
     description: 'The user records',
-    type: CreateUserDto
+    type: CreateUserDto,
   })
-  @ApiNotFoundResponse({description:'user not found.'})
+  @ApiNotFoundResponse({ description: 'user not found.' })
   @ApiBadRequestResponse({ status: 401, description: '没有权限' })
   @Get(':username')
   findOne(@Param('username') username: string) {
@@ -58,15 +68,22 @@ export class UserController {
     description: 'The user record',
     type: CreateUserDto,
   })
-  @ApiNotFoundResponse({description:'user not found.'})
+  @ApiNotFoundResponse({ description: 'user not found.' })
   @ApiBadRequestResponse({ status: 401, description: '没有权限' })
-  @ApiBadRequestResponse({ status: 500, description:'User validation failed: email: Please fill a valid email address., college: Please fill a valid college., phone: Please fill a valid phone., password: 请输入至少8-16个字符，至少1个大写字母，1个小写字母和1个数字的密码.'})
+  @ApiBadRequestResponse({
+    status: 500,
+    description:
+      'User validation failed: email: Please fill a valid email address., college: Please fill a valid college., phone: Please fill a valid phone., password: 请输入至少8-16个字符，至少1个大写字母，1个小写字母和1个数字的密码.',
+  })
   @Put(':username')
-  update(@Param('username') username: string, @Body() updateUserDto: UpdateUserDto) {
+  update(
+    @Param('username') username: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.userService.update(username, updateUserDto);
   }
-  @ApiOkResponse({description:'ok.'})
-  @ApiNotFoundResponse({description:'user not found.'})
+  @ApiOkResponse({ description: 'ok.' })
+  @ApiNotFoundResponse({ description: 'user not found.' })
   @ApiBadRequestResponse({ status: 401, description: '没有权限' })
   @ApiBadRequestResponse()
   @Delete(':username')

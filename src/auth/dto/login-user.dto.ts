@@ -11,8 +11,8 @@ export class LoginUserDto {
 }
 
 export class LoginSuccessDto {
-    @ApiProperty({
-        description: 'jwt',
-      })
-    acess_token: string;
+  @ApiProperty({
+    description: 'jwt',
+  })
+  acess_token: string;
 }

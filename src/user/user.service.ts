@@ -17,19 +17,19 @@ export class UserService {
   }
 
   async findOne(username: string): Promise<User> {
-    const user = await this.userModel.findOne({username}).exec();
+    const user = await this.userModel.findOne({ username }).exec();
     if (!user) throw new NotFoundException('user not found.');
     return user;
   }
 
   async update(username: string, updateUserDto: UpdateUserDto) {
-    const user = await this.userModel.findOne({username}).exec();
+    const user = await this.userModel.findOne({ username }).exec();
     if (!user) throw new NotFoundException('user not found.');
     return await user.updateOne(updateUserDto);
   }
 
   async remove(username: string) {
-    const user = await this.userModel.findOne({username}).exec();
+    const user = await this.userModel.findOne({ username }).exec();
     if (!user) throw new NotFoundException('user not found.');
     return await user.deleteOne();
   }
