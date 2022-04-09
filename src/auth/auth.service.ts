@@ -25,8 +25,10 @@ export class AuthService {
   }
   async login(user: any) {
     const userId = user?._doc?._id?.toString();
+    const username = user?._doc?.username;
+    const role = user?._doc?.role;
     if (!userId) throw new UnauthorizedException();
-    const payload = { username: user.username, sub: userId };
+    const payload = { username, sub: userId, role };
     return {
       access_token: this.jwtService.sign(payload),
     };

@@ -14,6 +14,10 @@ async function bootstrap() {
     .setDescription('The scnu-lib-be nodejs implement API document.')
     .setVersion('0.1')
     .addTag('user')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT', in: 'header' },
+      'JWT-auth',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('apis/swagger', app, document);

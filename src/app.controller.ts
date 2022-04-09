@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Header,
   Post,
   Request,
   UseGuards,
@@ -9,6 +10,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -17,6 +19,7 @@ import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { LoginSuccessDto, LoginUserDto } from './auth/dto/login-user.dto';
 import { RegisterUserDto } from './auth/dto/register-user.dto';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { CreateUserDto } from './user/dto/create-user.dto';
 
 @Controller()
@@ -52,5 +55,11 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  @ApiBearerAuth('JWT-auth')
+  getProfile(@Request() req) {
+    return req.user;
   }
 }
