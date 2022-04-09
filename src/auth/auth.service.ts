@@ -1,4 +1,24 @@
 import { Injectable } from '@nestjs/common';
-
+import { UserService } from 'src/user/user.service';
+import bcrypt from 'bcrypt';
+import { SALT_ROUNDS } from 'src/constant/crypt';
+import { RegisterUserDto } from './dto/register-user.dto';
 @Injectable()
-export class AuthService {}
+export class AuthService {
+  constructor(private userService: UserService) {}
+
+  async validateUser(username: string, pass: string) {
+  const user = await this.userService.findOne(username);
+  const secret = await bcrypt.hash(pass, SALT_ROUNDS);
+  if (user && user.secret === secret) {
+    const { secret, ...result} = user;
+    return result;
+  }
+  return null;
+}
+  async registerUser(user: RegisterUserDto) {
+    const secret = await bcrypt.hash(user.password, SALT_ROUNDS);
+    console.log(secret);
+    return this.userService.create({ ...user, secret });
+  }
+}

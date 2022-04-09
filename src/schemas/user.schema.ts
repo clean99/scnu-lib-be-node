@@ -59,14 +59,9 @@ export class User {
   })
   phone: string;
   @Prop({
-    required: [true, 'password required'],
-    validate: {
-      validator: validatePassword,
-      message:
-        '请输入至少8-16个字符，至少1个大写字母，1个小写字母和1个数字的密码.',
-    },
+    required: [true, 'secret required'],
   })
-  password: string;
+  secret: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

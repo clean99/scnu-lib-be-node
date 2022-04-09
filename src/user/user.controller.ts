@@ -56,7 +56,7 @@ export class UserController {
   }
   @ApiOkResponse({
     description: 'The user record',
-    type: CreateUserDto
+    type: CreateUserDto,
   })
   @ApiNotFoundResponse({description:'user not found.'})
   @ApiBadRequestResponse({ status: 401, description: '没有权限' })
