@@ -24,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { UserErrorsInterceptor } from './Interceptor/usererrors.interceptor';
 import { Role } from '../constant/role';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 @ApiTags('user')
 @Controller('user')
 @UseInterceptors(new UserErrorsInterceptor())

@@ -3,9 +3,8 @@ import { Document } from 'mongoose';
 import {
   validateCollege,
   validateEmail,
-  validatePassword,
   validatePhone,
-} from 'src/utils/validateUtils';
+} from '../utils/validateUtils';
 
 const ADMIN_ROLE = 0;
 
