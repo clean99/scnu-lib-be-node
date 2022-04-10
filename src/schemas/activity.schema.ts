@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { isAfter } from 'date-fns';
 import { SchemaTypes, Types, Document } from 'mongoose';
 import { stage, Tags } from 'src/constant/activity';
-import { validateDateBiggerThan } from 'src/utils/validateUtils';
 import { User } from './user.schema';
 
 export type ActivityDocument = Activity & Document;
@@ -35,20 +35,22 @@ export class Activity {
   title: string;
   @Prop({
     required: [true, 'activity register_date required'],
-    validate: validateDateBiggerThan,
+    validate: function (input: Date) {
+      return isAfter(input, new Date());
+    },
   })
   register_date: Date;
   @Prop({
     required: [true, 'activity start_date required'],
-    validate: function (input) {
-      validateDateBiggerThan(input, this?.register_date);
+    validate: function (input: Date) {
+      return isAfter(input, this.register_date);
     },
   })
   start_date: Date;
   @Prop({
     required: [true, 'activity end_date required'],
-    validate: function (input) {
-      validateDateBiggerThan(input, this?.start_date);
+    validate: function (input: Date) {
+      return isAfter(input, this.start_date);
     },
   })
   end_date: Date;
