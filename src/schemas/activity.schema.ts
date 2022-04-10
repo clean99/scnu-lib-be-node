@@ -28,8 +28,6 @@ const applicantPeopleSchema = SchemaFactory.createForClass(ApplicantPeople);
 
 @Schema({ timestamps: true })
 export class Activity {
-  @Prop({ type: mongoose.Types.ObjectId })
-  _id: Types.ObjectId;
   @Prop({
     required: [true, 'activity title required'],
     minlength: 1,
@@ -73,7 +71,7 @@ export class Activity {
   max_num_of_people: number;
   @Prop({
     required: false,
-    min: 1,
+    min: 0,
     validate: function (input) {
       input <= this.max_num_of_people;
     },

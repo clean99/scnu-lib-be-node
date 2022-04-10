@@ -12,6 +12,7 @@ import {
   ApiBearerAuth,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AppService } from './app.service';
@@ -20,7 +21,7 @@ import { LoginSuccessDto, LoginUserDto } from './auth/dto/login-user.dto';
 import { RegisterUserDto } from './auth/dto/register-user.dto';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { CreateUserDto } from './user/dto/create-user.dto';
-
+@ApiTags('auth')
 @Controller()
 export class AppController {
   constructor(

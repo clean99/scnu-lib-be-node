@@ -22,5 +22,7 @@ export const validateDateBiggerThan = function (
   input: Date | string,
   validDate?: Date | string,
 ) {
-  return new Date(input) >= new Date(validDate);
+  return validDate
+    ? new Date(input) >= new Date(validDate)
+    : new Date(input) >= new Date();
 };

@@ -12,8 +12,6 @@ export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
 export class User {
-  @Prop({ type: SchemaTypes.ObjectId })
-  _id: Types.ObjectId;
   @Prop({
     required: [true, 'username required'],
     unique: true,
