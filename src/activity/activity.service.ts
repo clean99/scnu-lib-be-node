@@ -10,13 +10,7 @@ export class ActivityService {
     @InjectModel(Activity.name) private activityModel: Model<ActivityDocument>,
   ) {}
   async create(createActivityDto: CreateActivityDto) {
-    const newActivity = {
-      ...createActivityDto,
-      registry_date: new Date(createActivityDto.register_date),
-      start_date: new Date(createActivityDto.start_date),
-      end_date: new Date(createActivityDto.end_date),
-    };
-    const activity = await this.activityModel.create(newActivity);
+    const activity = await this.activityModel.create(createActivityDto);
     return activity;
   }
 
