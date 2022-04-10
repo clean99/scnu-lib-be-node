@@ -56,10 +56,10 @@ export class CreateActivityDto {
   })
   hosts: string[]; // 主持人
   @ApiProperty({
-    description: 'allow_volunteer',
+    description: 'is_allow_volunteer',
     default: true,
   })
-  allow_volunteer: boolean; // 是否开启志愿者报名
+  is_allow_volunteer: boolean; // 是否开启志愿者报名
   @ApiProperty({
     description: 'is_delete',
     default: false,

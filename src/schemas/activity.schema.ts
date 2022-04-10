@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
 import { SchemaTypes, Types, Document } from 'mongoose';
 import { stage, Tags } from 'src/constant/activity';
 import { validateDateBiggerThan } from 'src/utils/validateUtils';
@@ -108,7 +107,7 @@ export class Activity {
   @Prop({
     required: false,
   })
-  allow_volunteer: boolean;
+  is_allow_volunteer: boolean;
   @Prop({
     required: false,
   })
