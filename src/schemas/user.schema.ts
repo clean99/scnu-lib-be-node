@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose from 'mongoose';
+import { Document, Types, SchemaTypes } from 'mongoose';
 import { Role } from 'src/constant/role';
 import {
   validateCollege,
@@ -9,8 +10,10 @@ import {
 
 export type UserDocument = User & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
+  @Prop({ type: SchemaTypes.ObjectId })
+  _id: Types.ObjectId;
   @Prop({
     required: [true, 'username required'],
     unique: true,
