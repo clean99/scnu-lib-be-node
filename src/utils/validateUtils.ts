@@ -17,3 +17,10 @@ export const validatePassword = function (password: string) {
   const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
   return re.test(password);
 };
+// bigger than validDate, if validDate is undefined, bigger than now
+export const validateDateBiggerThan = function (
+  input: Date | string,
+  validDate?: Date | string,
+) {
+  return new Date(input) >= new Date(validDate);
+};
