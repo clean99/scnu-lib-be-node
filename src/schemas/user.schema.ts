@@ -1,12 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Role } from 'src/constant/role';
 import {
   validateCollege,
   validateEmail,
   validatePhone,
 } from '../utils/validateUtils';
-
-const ADMIN_ROLE = 0;
 
 export type UserDocument = User & Document;
 
@@ -39,7 +38,7 @@ export class User {
     },
   })
   college: string;
-  @Prop({ required: [true, 'role required'], min: ADMIN_ROLE })
+  @Prop({ required: [true, 'role required'], min: Role.admin })
   role: number;
   @Prop({
     required: [true, 'student_id required'],
