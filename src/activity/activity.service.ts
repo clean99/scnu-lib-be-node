@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Activity, ActivityDocument } from 'src/schemas/activity.schema';
+import { Activity, ActivityDocument } from '../schemas/activity.schema';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { Model } from 'mongoose';
@@ -24,10 +24,10 @@ export class ActivityService {
   }
 
   update(id: number, updateActivityDto: UpdateActivityDto) {
-    return `This action updates a #${id} activity`;
+    return this.activityModel.findByIdAndUpdate(id, updateActivityDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} activity`;
+    return this.activityModel.findByIdAndDelete(id);
   }
 }
