@@ -7,7 +7,6 @@ import {
   rootMongooseTestModule,
 } from '../utils/testing/mongoInMemory';
 import { ActivityService } from './activity.service';
-import { parse } from 'flatted';
 describe('ActivityService', () => {
   let service: ActivityService;
   beforeAll(async () => {
