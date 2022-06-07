@@ -19,15 +19,18 @@ export class ActivityService {
     return activities;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} activity`;
+  async findOne(id: string) {
+    const activity = await this.activityModel.findById(id).exec();
+    return activity;
   }
 
-  update(id: number, updateActivityDto: UpdateActivityDto) {
-    return this.activityModel.findByIdAndUpdate(id, updateActivityDto);
+  update(id: string, updateActivityDto: UpdateActivityDto) {
+    return this.activityModel.findByIdAndUpdate(id, updateActivityDto, {
+      runValidators: true,
+    });
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.activityModel.findByIdAndDelete(id);
   }
 }
