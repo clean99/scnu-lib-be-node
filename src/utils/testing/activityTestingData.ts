@@ -1,5 +1,4 @@
 export const activity = {
-  _id: '62529d749653b09b18536018',
   title: 'string',
   register_date: '2023-04-30T00:00:00',
   start_date: '2023-05-30T00:00:00',
@@ -15,7 +14,4 @@ export const activity = {
   is_delete: false,
   applicant_people: [],
   volunteer: [],
-  createdAt: '2023-04-10T09:03:48.064Z',
-  updatedAt: '2023-04-10T09:03:48.064Z',
-  __v: 0,
 };
