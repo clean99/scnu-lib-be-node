@@ -2,7 +2,7 @@
 
 # 基于 node lts-alpine 版本镜像，并通过构建阶段命名，将有 node 环境的阶段命名为 build-stage
 #（包含 alpine 的镜像版本相比于 latest 版本更加小巧，更适合作为 docker 镜像使用）
-FROM node:lts-alpine
+FROM node:latest
 
 # 自定义镜像的默认工作目录
 WORKDIR /nestwebstack
