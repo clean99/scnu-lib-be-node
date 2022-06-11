@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
 import { Document, Types, SchemaTypes } from 'mongoose';
-import { Role } from 'src/constant/role';
+import { Role } from '../constant/role';
 import {
   validateCollege,
   validateEmail,

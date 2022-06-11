@@ -49,7 +49,7 @@ export class CreateActivityDto {
     description: 'tags',
     default: [0, 1, 2],
   })
-  tags: string; // 映射到Act_Tag表
+  tags: number[]; // 映射到Act_Tag表
   @ApiProperty({
     description: 'hosts',
     default: ['624e70bc1e172b1241a0b3ba'],

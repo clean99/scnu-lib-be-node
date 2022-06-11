@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Activity, ActivityDocument } from 'src/schemas/activity.schema';
+import { Activity, ActivityDocument } from '../schemas/activity.schema';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { Model } from 'mongoose';
@@ -19,15 +19,18 @@ export class ActivityService {
     return activities;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} activity`;
+  async findOne(id: string) {
+    const activity = await this.activityModel.findById(id).exec();
+    return activity;
   }
 
-  update(id: number, updateActivityDto: UpdateActivityDto) {
-    return `This action updates a #${id} activity`;
+  update(id: string, updateActivityDto: UpdateActivityDto) {
+    return this.activityModel.findByIdAndUpdate(id, updateActivityDto, {
+      runValidators: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} activity`;
+  remove(id: string) {
+    return this.activityModel.findByIdAndDelete(id);
   }
 }
