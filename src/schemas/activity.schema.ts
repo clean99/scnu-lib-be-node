@@ -8,8 +8,8 @@ export type ActivityDocument = Activity & Document;
 
 @Schema()
 class ApplicantPeople {
-  @Prop({ type: SchemaTypes.ObjectId, ref: User.name })
-  user_id: Types.ObjectId;
+  @Prop()
+  user_id: string;
   @Prop({ require: [true, 'user stage required'], type: String, enum: stage })
   stage: stage;
   @Prop({
@@ -27,6 +27,10 @@ const applicantPeopleSchema = SchemaFactory.createForClass(ApplicantPeople);
 
 @Schema({ timestamps: true })
 export class Activity {
+  @Prop({
+    required: true,
+  })
+  activity_id: string;
   @Prop({
     required: [true, 'activity title required'],
     minlength: 1,
@@ -99,9 +103,9 @@ export class Activity {
   @Prop({
     required: [true, 'activity host required'],
     minlength: 1,
-    type: [{ type: SchemaTypes.ObjectId, ref: User.name }],
+    type: [String],
   })
-  hosts: Types.ObjectId[];
+  hosts: string[];
   @Prop({
     required: false,
     type: [applicantPeopleSchema],

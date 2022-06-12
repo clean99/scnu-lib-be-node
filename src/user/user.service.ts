@@ -4,11 +4,16 @@ import { User, UserDocument } from '../schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Model } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
+
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const createdUser = await this.userModel.create(createUserDto);
+    const createdUser = await this.userModel.create({
+      ...createUserDto,
+      user_id:uuidv4(),
+    });
     return createdUser;
   }
 

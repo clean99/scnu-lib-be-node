@@ -4,13 +4,18 @@ import { Activity, ActivityDocument } from '../schemas/activity.schema';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { Model } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
+
 @Injectable()
 export class ActivityService {
   constructor(
     @InjectModel(Activity.name) private activityModel: Model<ActivityDocument>,
   ) {}
   async create(createActivityDto: CreateActivityDto) {
-    const activity = await this.activityModel.create(createActivityDto);
+    const activity = await this.activityModel.create({
+      ...createActivityDto,
+      user_id: uuidv4(),
+    });
     return activity;
   }
 
