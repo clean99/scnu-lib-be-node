@@ -1,15 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { isAfter, isDate } from 'date-fns';
-import { SchemaTypes, Types, Document } from 'mongoose';
+import { Document } from 'mongoose';
+import { validateDateAfter } from '../utils/validateUtils';
 import { stage, Tags } from '../constant/activity';
-import { User } from './user.schema';
 
 export type ActivityDocument = Activity & Document;
 
 @Schema()
 class ApplicantPeople {
-  @Prop({ type: SchemaTypes.ObjectId, ref: User.name })
-  user_id: Types.ObjectId;
+  @Prop()
+  user_id: string;
   @Prop({ require: [true, 'user stage required'], type: String, enum: stage })
   stage: stage;
   @Prop({
@@ -28,6 +27,10 @@ const applicantPeopleSchema = SchemaFactory.createForClass(ApplicantPeople);
 @Schema({ timestamps: true })
 export class Activity {
   @Prop({
+    required: true,
+  })
+  activity_id: string;
+  @Prop({
     required: [true, 'activity title required'],
     minlength: 1,
     maxlength: 25,
@@ -36,27 +39,21 @@ export class Activity {
   @Prop({
     required: [true, 'activity register_date required'],
     validate: function (input: string) {
-      return isDate(new Date(input)) && isAfter(new Date(input), new Date());
+      return validateDateAfter(input, new Date().toString());
     },
   })
   register_date: string;
   @Prop({
     required: [true, 'activity start_date required'],
     validate: function (input: string) {
-      return (
-        isDate(new Date(input)) &&
-        isAfter(new Date(input), new Date(this.register_date))
-      );
+      return validateDateAfter(input, this.register_date);
     },
   })
   start_date: string;
   @Prop({
     required: [true, 'activity end_date required'],
     validate: function (input: string) {
-      return (
-        isDate(new Date(input)) &&
-        isAfter(new Date(input), new Date(this.start_date))
-      );
+      return validateDateAfter(input, this.start_date);
     },
   })
   end_date: string;
@@ -99,9 +96,9 @@ export class Activity {
   @Prop({
     required: [true, 'activity host required'],
     minlength: 1,
-    type: [{ type: SchemaTypes.ObjectId, ref: User.name }],
+    type: [String],
   })
-  hosts: Types.ObjectId[];
+  hosts: string[];
   @Prop({
     required: false,
     type: [applicantPeopleSchema],
