@@ -14,7 +14,7 @@ export class ActivityService {
   async create(createActivityDto: CreateActivityDto) {
     const activity = await this.activityModel.create({
       ...createActivityDto,
-      user_id: uuidv4(),
+      activity_id: uuidv4(),
     });
     return activity;
   }
@@ -25,17 +25,23 @@ export class ActivityService {
   }
 
   async findOne(id: string) {
-    const activity = await this.activityModel.findById(id).exec();
+    const activity = await this.activityModel
+      .findOne({ activity_id: id })
+      .exec();
     return activity;
   }
 
   update(id: string, updateActivityDto: UpdateActivityDto) {
-    return this.activityModel.findByIdAndUpdate(id, updateActivityDto, {
-      runValidators: true,
-    });
+    return this.activityModel.findOneAndUpdate(
+      { activity_id: id },
+      updateActivityDto,
+      {
+        runValidators: true,
+      },
+    );
   }
 
   remove(id: string) {
-    return this.activityModel.findByIdAndDelete(id);
+    return this.activityModel.findOneAndDelete({ activity_id: id });
   }
 }

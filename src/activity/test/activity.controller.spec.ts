@@ -1,126 +1,132 @@
-import { Test } from "@nestjs/testing"
-import { Activity } from "src/schemas/activity.schema";
-import { ActivityController } from "../activity.controller"
-import { ActivityService } from "../activity.service"
-import { CreateActivityDto } from "../dto/create-activity.dto";
-import { UpdateActivityDto } from "../dto/update-activity.dto";
-import { activityStub } from "./stubs/activity.stub";
+import { Test } from '@nestjs/testing';
+import { Activity } from 'src/schemas/activity.schema';
+import { ActivityController } from '../activity.controller';
+import { ActivityService } from '../activity.service';
+import { CreateActivityDto } from '../dto/create-activity.dto';
+import { UpdateActivityDto } from '../dto/update-activity.dto';
+import { activityStub } from './stubs/activity.stub';
 
 jest.mock('../activity.service');
 
 describe('ActivityController', () => {
-    let activityController: ActivityController;
-    let activityService: ActivityService;
-    
-    beforeEach(async () => {
-        const moduleRef = await Test.createTestingModule({
-            imports: [],
-            controllers: [ActivityController],
-            providers: [ActivityService]
-        }).compile();
-        activityController = moduleRef.get<ActivityController>(ActivityController);
-        activityService = moduleRef.get<ActivityService>(ActivityService);
-        jest.clearAllMocks();
-    })
+  let activityController: ActivityController;
+  let activityService: ActivityService;
+  const activityMock = activityStub();
 
-    describe('findOne', () => {
-        describe('when findOne called', () => {
-            let activity : Activity;
-            const activityMock = activityStub();
-    
-            beforeEach(async () => {
-                activity = await activityController.findOne(activityMock.activity_id);
-            })
-    
-            it('should call activityService', () => {
-                expect(activityService.findOne).toBeCalledWith(activityMock.activity_id);
-            })
-            
-            it('should return a activity', () => {
-                expect(activity).toEqual(activityMock);
-            })
-        })
-    })
+  beforeEach(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [],
+      controllers: [ActivityController],
+      providers: [ActivityService],
+    }).compile();
+    activityController = moduleRef.get<ActivityController>(ActivityController);
+    activityService = moduleRef.get<ActivityService>(ActivityService);
+    jest.clearAllMocks();
+  });
 
-    describe('findAll', () => {
-        describe('when findAll called', () => {
-            let activities: Activity[];
-            const activitiesMock = [activityStub()];
+  describe('findOne', () => {
+    describe('when findOne called', () => {
+      let activity: Activity;
 
-            beforeEach(async () => {
-                activities = await activityController.findAll();
-            })
+      beforeEach(async () => {
+        activity = await activityController.findOne(activityMock.activity_id);
+      });
 
-            it('should call activityService', () => {
-                expect(activityService.findAll).toBeCalled();
-            })
+      it('should call activityService', () => {
+        expect(activityService.findOne).toBeCalledWith(
+          activityMock.activity_id,
+        );
+      });
 
-            it('Should return a activities array', () => {
-                expect(activities).toEqual(activitiesMock);
-            })
-        })
-    })
+      it('should return an activity', () => {
+        expect(activity).toEqual(activityMock);
+      });
+    });
+  });
 
-    describe('create', () => {
-        describe('when create called', () => {
-            let activity: Activity;
-            const activityMock = activityStub();
-            const activityDto: CreateActivityDto = {
-                ...activityMock
-            };
+  describe('findAll', () => {
+    describe('when findAll called', () => {
+      let activities: Activity[];
+      const activitiesMock = [activityMock];
 
-            beforeEach(async () => {
-                activity = await activityController.create(activityDto)
-            })
+      beforeEach(async () => {
+        activities = await activityController.findAll();
+      });
 
-            it('should call activityService', () => {
-                expect(activityService.create).toBeCalledWith(activityDto)
-            })
+      it('should call activityService', () => {
+        expect(activityService.findAll).toBeCalled();
+      });
 
-            it('should return a activity', () => {
-                expect(activity).toEqual(activityMock);
-            })
-        })
-    })
+      it('Should return an activities array', () => {
+        expect(activities).toEqual(activitiesMock);
+      });
+    });
+  });
 
-    describe('update', () => {
-        describe('when update called', () => {
-            let activity: Activity;
-            const activityMock = activityStub();
-            const activityDto: UpdateActivityDto = {
-                ...activityMock
-            };
+  describe('create', () => {
+    describe('when create called', () => {
+      let activity: Activity;
 
-            beforeEach(async () => {
-                activity = await activityController.update(activityMock.activity_id, activityDto)
-            })
+      const createActivityDto: CreateActivityDto = {
+        ...activityMock,
+      };
 
-            it('should call activityService', () => {
-                expect(activityService.update).toBeCalledWith(activityMock.activity_id, activityDto)
-            })
+      beforeEach(async () => {
+        activity = await activityController.create(createActivityDto);
+      });
 
-            it('should return a activity', () => {
-                expect(activity).toEqual(activityMock);
-            })
-        })
-    })
+      it('should call activityService', () => {
+        expect(activityService.create).toBeCalledWith(createActivityDto);
+      });
 
-    describe('remove', () => {
-        describe('when remove called', () => {
-            let activity: Activity;
-            const activityMock = activityStub();
+      it('should return an activity', () => {
+        expect(activity).toEqual(activityMock);
+      });
+    });
+  });
 
-            beforeEach(async () => {
-                activity = await activityController.remove(activityMock.activity_id)
-            })
+  describe('update', () => {
+    describe('when update called', () => {
+      let activity: Activity;
+      const updateActivityDto: UpdateActivityDto = {
+        ...activityMock,
+      };
 
-            it('should call activityService', () => {
-                expect(activityService.remove).toBeCalledWith(activityMock.activity_id)
-            })
+      beforeEach(async () => {
+        activity = await activityController.update(
+          activityMock.activity_id,
+          updateActivityDto,
+        );
+      });
 
-            it('should return a activity', () => {
-                expect(activity).toEqual(activityMock);
-            })
-        })
-    })
-})
+      it('should call activityService', () => {
+        expect(activityService.update).toBeCalledWith(
+          activityMock.activity_id,
+          updateActivityDto,
+        );
+      });
+
+      it('should return an activity', () => {
+        expect(activity).toEqual(activityMock);
+      });
+    });
+  });
+
+  describe('remove', () => {
+    describe('when remove called', () => {
+      let activity: Activity;
+
+      beforeEach(async () => {
+        activity = await activityController.remove(activityMock.activity_id);
+      });
+
+      it('should call activityService', () => {
+        expect(activityService.remove).toBeCalledWith(activityMock.activity_id);
+      });
+
+      it('should return an activity', () => {
+        expect(activity).toEqual(activityMock);
+      });
+    });
+  });
+});

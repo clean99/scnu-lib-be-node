@@ -12,7 +12,7 @@ export class UserService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = await this.userModel.create({
       ...createUserDto,
-      user_id:uuidv4(),
+      user_id: uuidv4(),
     });
     return createdUser;
   }
